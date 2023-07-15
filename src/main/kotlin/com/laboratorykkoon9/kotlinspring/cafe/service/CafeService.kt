@@ -5,7 +5,7 @@ import org.springframework.stereotype.Service
 
 @Service
 class CafeService {
-    fun getCafeInfo(): CafeInfoResponseDto {
+    suspend fun getCafeInfo(): CafeInfoResponseDto {
         return CafeInfoResponseDto(
             openedTime = CAFE_OPEN_TIME,
             closedTime = CAFE_CLOSE_TIME,

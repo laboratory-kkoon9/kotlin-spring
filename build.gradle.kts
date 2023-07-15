@@ -12,7 +12,7 @@ plugins {
 }
 
 object DependencyVersions {
-    const val SPRINGDOC_VERSION = "1.6.14"
+    const val SPRINGDOC_VERSION = "2.0.4"
 }
 
 group = "com.laboratory-kkoon9"
@@ -32,7 +32,7 @@ dependencies {
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
 
     // swagger
-    implementation("org.springdoc:springdoc-openapi-starter-webflux-ui:2.0.4")
+    implementation("org.springdoc:springdoc-openapi-starter-webflux-ui:${DependencyVersions.SPRINGDOC_VERSION}")
 }
 
 tasks.withType<KotlinCompile> {

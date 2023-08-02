@@ -8,6 +8,7 @@ plugins {
     kotlin("plugin.spring") version kotlinVersion
     kotlin("plugin.jpa") version kotlinVersion
     kotlin("kapt") version kotlinVersion
+    jacoco
 
 }
 
@@ -30,9 +31,23 @@ dependencies {
     implementation("io.projectreactor.kotlin:reactor-kotlin-extensions")
 
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
+    implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
 
     // swagger
     implementation("org.springdoc:springdoc-openapi-starter-webflux-ui:${DependencyVersions.SPRINGDOC_VERSION}")
+
+    // jpa
+    implementation("org.springframework.boot:spring-boot-starter-data-jpa")
+
+    // h2
+    runtimeOnly("com.h2database:h2")
+
+    // validator
+    implementation("org.springframework.boot:spring-boot-starter-validation")
+
+    // logging
+    implementation("io.github.microutils:kotlin-logging-jvm:3.0.5")
+    implementation("org.slf4j:slf4j-api:2.0.5")
 }
 
 tasks.withType<KotlinCompile> {

@@ -22,3 +22,14 @@ data class CreateCafeDto(
         closedAt = this.closedAt,
     )
 }
+
+data class UpdateCafeDto(
+    val id: Long,
+    val name: String?,
+    val latitude: String?,
+    val longitude: String?,
+    val mainAddress: String?,
+    val detailAddress: String?,
+    val openedAt: LocalTime?,
+    val closedAt: LocalTime?,
+)

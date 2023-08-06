@@ -5,7 +5,7 @@ import java.time.LocalTime
 
 class CafeItem(
     val id: Long?,
-    val name: String,
+    val name: String?,
     val latitude: String?,
     val longitude: String?,
     val mainAddress: String?,

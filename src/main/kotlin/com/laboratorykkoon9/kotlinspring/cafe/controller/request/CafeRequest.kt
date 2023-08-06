@@ -11,3 +11,13 @@ data class CreateCafeRequest(
     val openedAt: LocalTime?,
     val closedAt: LocalTime?,
 )
+
+data class UpdateCafeRequest(
+    val name: String?,
+    val latitude: String?,
+    val longitude: String?,
+    val mainAddress: String?,
+    val detailAddress: String?,
+    val openedAt: LocalTime?,
+    val closedAt: LocalTime?,
+)

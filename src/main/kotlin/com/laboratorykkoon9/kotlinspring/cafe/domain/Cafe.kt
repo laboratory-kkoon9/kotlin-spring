@@ -20,31 +20,57 @@ class Cafe(
     val id: Long? = 0
 
     @Column(name = "name")
-    val name: String = name
+    var name: String = name
+        private set
 
     @Column(name = "latitude")
-    val latitude: String? = latitude
+    var latitude: String? = latitude
+        private set
 
     @Column(name = "longitude")
-    val longitude: String? = longitude
+    var longitude: String? = longitude
+        private set
 
     @Column(name = "main_address")
-    val mainAddress: String? = mainAddress
+    var mainAddress: String? = mainAddress
+        private set
 
     @Column(name = "detail_address")
-    val detailAddress: String? = detailAddress
+    var detailAddress: String? = detailAddress
+        private set
 
     @Column(name = "opened_at")
-    val openedAt: LocalTime? = openedAt
+    var openedAt: LocalTime? = openedAt
+        private set
 
     @Column(name = "closed_at")
-    val closedAt: LocalTime? = closedAt
+    var closedAt: LocalTime? = closedAt
+        private set
 
     @Column(name = "activate")
-    val activate: Boolean = activate
+    var activate: Boolean = activate
+        private set
 
     companion object {
         val CAFE_OPEN_TIME: LocalTime = LocalTime.of(9, 0)
         val CAFE_CLOSE_TIME: LocalTime = LocalTime.of(18, 0)
+    }
+
+    fun update(
+        name: String? = null,
+        latitude: String? = null,
+        longitude: String? = null,
+        mainAddress: String? = null,
+        detailAddress: String? = null,
+        openedAt: LocalTime? = null,
+        closedAt: LocalTime? = null,
+    ) {
+        this.name = name ?: this.name
+        this.latitude = latitude ?: this.latitude
+        this.longitude = longitude ?: this.longitude
+        this.mainAddress = mainAddress ?: this.mainAddress
+        this.detailAddress = detailAddress ?: this.detailAddress
+        this.openedAt = openedAt ?: this.openedAt
+        this.closedAt = closedAt ?: this.closedAt
     }
 }

@@ -53,4 +53,13 @@ class CafeService(
             )
         }
         .also { logger.info("수정된 카페의 이름은 ${it.name}입니다.") }
+
+    @Transactional
+    suspend fun updateCafeStatus(
+        id: Long
+    ) = cafeRepository.findById(id).orElseThrow { IllegalArgumentException("카페 번호를 다시 확인해주세요.") }
+        .also {
+            it.updateStatus()
+        }
+        .also { logger.info("이 카페는 ${if(it.activate) "활성화" else "비활성화"}되었습니다.") }
 }

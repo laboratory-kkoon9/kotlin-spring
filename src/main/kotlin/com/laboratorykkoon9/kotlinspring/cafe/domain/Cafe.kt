@@ -73,4 +73,8 @@ class Cafe(
         this.openedAt = openedAt ?: this.openedAt
         this.closedAt = closedAt ?: this.closedAt
     }
+
+    fun updateStatus() {
+        this.activate = !this.activate
+    }
 }

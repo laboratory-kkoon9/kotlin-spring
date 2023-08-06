@@ -94,6 +94,27 @@ class CafeController(
     }
         .let { CafeItem.of(it) }
         .let { Response.of(it) }
+
+    @Operation(summary = "카페 수정 API", description = "카페를 수정하는 API")
+    @ApiResponses(
+        ApiResponse(
+            responseCode = "200",
+            content = [
+                Content(
+                    mediaType = "application/json",
+                    schema = Schema(implementation = CafeItem::class),
+                ),
+            ],
+        ),
+    )
+    @PutMapping("/status/{id}")
+    fun updateCafeStatus(
+        @PathVariable("id") id: Long,
+    ) = runBlocking {
+        cafeService.updateCafeStatus(id)
+    }
+        .let { CafeItem.of(it) }
+        .let { Response.of(it) }
 }
 
 private fun UpdateCafeRequest.toRequest(id: Long) = UpdateCafeDto(

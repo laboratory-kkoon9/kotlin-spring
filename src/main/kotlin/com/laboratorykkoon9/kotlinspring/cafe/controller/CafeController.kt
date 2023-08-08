@@ -46,11 +46,8 @@ class CafeController(
     @GetMapping
     fun getCafeInfo(
         @PageableDefault(page = 0, size = 30) pageable: Pageable
-    ) = runBlocking {
-        cafeService.getCafeInfo(pageable)
-    }.let {
-        Response.pageOf(it)
-    }
+    ) = runBlocking { cafeService.getCafeInfo(pageable) }
+        .let { Response.pageOf(it) }
 
     @Operation(summary = "카페 생성 API", description = "카페를 새로 만드는 API")
     @ApiResponses(
@@ -67,9 +64,7 @@ class CafeController(
     @PostMapping
     fun createCafe(
         @RequestBody createCafeRequest: CreateCafeRequest
-    ) = runBlocking {
-        cafeService.createCafe(createCafeRequest.toRequest())
-    }
+    ) = runBlocking { cafeService.createCafe(createCafeRequest.toRequest()) }
         .let { CafeItem.of(it) }
         .let { Response.of(it) }
 
@@ -89,9 +84,7 @@ class CafeController(
     fun updateCafe(
         @PathVariable("id") id: Long,
         @RequestBody updateCafeRequest: UpdateCafeRequest
-    ) = runBlocking {
-        cafeService.updateCafe(updateCafeRequest.toRequest(id))
-    }
+    ) = runBlocking { cafeService.updateCafe(updateCafeRequest.toRequest(id)) }
         .let { CafeItem.of(it) }
         .let { Response.of(it) }
 
@@ -110,9 +103,7 @@ class CafeController(
     @PutMapping("/status/{id}")
     fun updateCafeStatus(
         @PathVariable("id") id: Long,
-    ) = runBlocking {
-        cafeService.updateCafeStatus(id)
-    }
+    ) = runBlocking { cafeService.updateCafeStatus(id) }
         .let { CafeItem.of(it) }
         .let { Response.of(it) }
 }

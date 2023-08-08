@@ -88,7 +88,7 @@ class CafeController(
         .let { CafeItem.of(it) }
         .let { Response.of(it) }
 
-    @Operation(summary = "카페 수정 API", description = "카페를 수정하는 API")
+    @Operation(summary = "카페 상태 수정 API", description = "카페 상태를 수정하는 API")
     @ApiResponses(
         ApiResponse(
             responseCode = "200",

@@ -1,5 +1,6 @@
 package com.laboratorykkoon9.kotlinspring.cafe.domain
 
+import com.laboratorykkoon9.kotlinspring.common.BaseEntity
 import jakarta.persistence.*
 import java.time.LocalTime
 
@@ -14,10 +15,10 @@ class Cafe(
     openedAt: LocalTime? = null,
     closedAt: LocalTime? = null,
     activate: Boolean = true
-) {
+): BaseEntity() {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    val id: Long? = 0
+    val id: Long ? = null
 
     @Column(name = "name")
     var name: String = name

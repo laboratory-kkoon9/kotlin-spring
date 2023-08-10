@@ -2,14 +2,10 @@ package com.laboratorykkoon9.kotlinspring.cafe.domain
 
 import com.laboratorykkoon9.kotlinspring.common.BaseEntity
 import jakarta.persistence.*
-import org.springframework.data.annotation.CreatedDate
-import org.springframework.data.annotation.LastModifiedDate
-import org.springframework.data.jpa.domain.support.AuditingEntityListener
-import java.time.LocalDateTime
 
 @Entity
 @Table(name = "cafe_menu")
-class CafeMenu(
+class Menu(
     categoryId: Long,
     name: String,
     price: Int,
@@ -34,9 +30,4 @@ class CafeMenu(
     @Column(name = "sold_out")
     var soldOut: Boolean = soldOut
         private set
-
-    fun updateMenuSoldOut(soldOut: Boolean) {
-        this.soldOut = soldOut
-        this.updatedAt = LocalDateTime.now()
-    }
 }

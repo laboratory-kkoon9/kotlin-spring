@@ -1,6 +1,7 @@
 package com.laboratorykkoon9.kotlinspring.cafe.service
 
 import com.laboratorykkoon9.kotlinspring.cafe.repository.CafeRepository
+import com.laboratorykkoon9.kotlinspring.cafe.repository.MenuRepository
 import com.laboratorykkoon9.kotlinspring.cafe.service.model.CreateCafeDto
 import com.laboratorykkoon9.kotlinspring.cafe.service.model.GetCafeInfo
 import com.laboratorykkoon9.kotlinspring.cafe.service.model.UpdateCafeDto
@@ -11,7 +12,8 @@ import org.springframework.transaction.annotation.Transactional
 
 @Service
 class CafeService(
-    private val cafeRepository: CafeRepository
+    private val cafeRepository: CafeRepository,
+    private val menuRepository: MenuRepository,
 ) {
     val logger = KotlinLogging.logger {}
 
@@ -21,6 +23,9 @@ class CafeService(
     ) = cafeRepository.findAll(pageable)
         .also { logger.info("조회된 카페의 개수는 ${it.content.size}입니다.") }
         .map { GetCafeInfo.of(it) }
+        .also {
+            menuRepository.findByCafeId(1)
+        }
 
     @Transactional
     suspend fun createCafe(

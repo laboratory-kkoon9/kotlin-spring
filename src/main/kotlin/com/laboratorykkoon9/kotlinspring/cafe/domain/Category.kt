@@ -5,7 +5,7 @@ import jakarta.persistence.*
 
 @Entity
 @Table(name = "cafe_menu")
-class Cafegory(
+class Category(
     cafeId: Long,
     name: String
 ) : BaseEntity() {

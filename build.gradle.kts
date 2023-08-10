@@ -1,5 +1,3 @@
-import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
-
 plugins {
     val kotlinVersion = "1.8.21"
     id("org.springframework.boot") version "3.0.1"
@@ -48,15 +46,19 @@ dependencies {
     // logging
     implementation("io.github.microutils:kotlin-logging-jvm:3.0.5")
     implementation("org.slf4j:slf4j-api:2.0.5")
-}
 
-tasks.withType<KotlinCompile> {
-    kotlinOptions {
-        freeCompilerArgs = listOf("-Xjsr305=strict")
-        jvmTarget = "17"
-    }
+    // querydsl
+    implementation ("com.querydsl:querydsl-jpa:5.0.0:jakarta")
+    kapt ("com.querydsl:querydsl-apt:5.0.0:jakarta")
 }
 
 tasks.withType<Test> {
     useJUnitPlatform()
+}
+
+//kotlin.sourceSets.main {
+//    setBuildDir("$buildDir/generated/source/kapt/main")
+//}
+kotlin {
+    jvmToolchain(17)
 }

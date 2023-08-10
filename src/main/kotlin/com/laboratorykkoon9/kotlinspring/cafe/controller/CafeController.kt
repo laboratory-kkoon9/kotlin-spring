@@ -2,7 +2,7 @@ package com.laboratorykkoon9.kotlinspring.cafe.controller
 
 import com.laboratorykkoon9.kotlinspring.cafe.controller.request.CreateCafeRequest
 import com.laboratorykkoon9.kotlinspring.cafe.controller.request.UpdateCafeRequest
-import com.laboratorykkoon9.kotlinspring.cafe.controller.response.CafeItem
+import com.laboratorykkoon9.kotlinspring.cafe.controller.response.CafeResponseDto
 import com.laboratorykkoon9.kotlinspring.cafe.service.CafeService
 import com.laboratorykkoon9.kotlinspring.cafe.service.model.CreateCafeDto
 import com.laboratorykkoon9.kotlinspring.cafe.service.model.GetCafeInfo
@@ -47,6 +47,7 @@ class CafeController(
     fun getCafeInfo(
         @PageableDefault(page = 0, size = 30) pageable: Pageable
     ) = runBlocking { cafeService.getCafeInfo(pageable) }
+        .map { CafeResponseDto.of(it) }
         .let { Response.pageOf(it) }
 
     @Operation(summary = "카페 생성 API", description = "카페를 새로 만드는 API")
@@ -56,7 +57,7 @@ class CafeController(
             content = [
                 Content(
                     mediaType = "application/json",
-                    schema = Schema(implementation = CafeItem::class),
+                    schema = Schema(implementation = CafeResponseDto::class),
                 ),
             ],
         ),
@@ -65,7 +66,7 @@ class CafeController(
     fun createCafe(
         @RequestBody createCafeRequest: CreateCafeRequest
     ) = runBlocking { cafeService.createCafe(createCafeRequest.toRequest()) }
-        .let { CafeItem.of(it) }
+        .let { CafeResponseDto.of(it) }
         .let { Response.of(it) }
 
     @Operation(summary = "카페 수정 API", description = "카페를 수정하는 API")
@@ -75,7 +76,7 @@ class CafeController(
             content = [
                 Content(
                     mediaType = "application/json",
-                    schema = Schema(implementation = CafeItem::class),
+                    schema = Schema(implementation = CafeResponseDto::class),
                 ),
             ],
         ),
@@ -85,7 +86,7 @@ class CafeController(
         @PathVariable("id") id: Long,
         @RequestBody updateCafeRequest: UpdateCafeRequest
     ) = runBlocking { cafeService.updateCafe(updateCafeRequest.toRequest(id)) }
-        .let { CafeItem.of(it) }
+        .let { CafeResponseDto.of(it) }
         .let { Response.of(it) }
 
     @Operation(summary = "카페 상태 수정 API", description = "카페 상태를 수정하는 API")
@@ -95,7 +96,7 @@ class CafeController(
             content = [
                 Content(
                     mediaType = "application/json",
-                    schema = Schema(implementation = CafeItem::class),
+                    schema = Schema(implementation = CafeResponseDto::class),
                 ),
             ],
         ),
@@ -104,7 +105,7 @@ class CafeController(
     fun updateCafeStatus(
         @PathVariable("id") id: Long,
     ) = runBlocking { cafeService.updateCafeStatus(id) }
-        .let { CafeItem.of(it) }
+        .let { CafeResponseDto.of(it) }
         .let { Response.of(it) }
 }
 

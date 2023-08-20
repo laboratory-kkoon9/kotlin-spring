@@ -12,6 +12,7 @@ plugins {
 
 object DependencyVersions {
     const val SPRINGDOC_VERSION = "2.0.4"
+    const val KOTEST_VERSION = "5.5.5"
 }
 
 group = "com.laboratory-kkoon9"
@@ -36,6 +37,7 @@ dependencies {
 
     // jpa
     implementation("org.springframework.boot:spring-boot-starter-data-jpa")
+    testImplementation("org.junit.jupiter:junit-jupiter:5.8.1")
 
     // h2
     runtimeOnly("com.h2database:h2")
@@ -50,15 +52,23 @@ dependencies {
     // querydsl
     implementation ("com.querydsl:querydsl-jpa:5.0.0:jakarta")
     kapt ("com.querydsl:querydsl-apt:5.0.0:jakarta")
+
+    // Testing tools
+    testImplementation(kotlin("test"))
+    testImplementation("io.kotest:kotest-runner-junit5:${DependencyVersions.KOTEST_VERSION}")
+    testImplementation("io.kotest:kotest-assertions-core:${DependencyVersions.KOTEST_VERSION}")
 }
 
 tasks.withType<Test> {
     useJUnitPlatform()
 }
 
-//kotlin.sourceSets.main {
-//    setBuildDir("$buildDir/generated/source/kapt/main")
-//}
+sourceSets {
+    test {
+        kotlin.srcDir("src/test/kotlin") // 테스트 코드를 src/test/kotlin 디렉토리에 작성하도록 변경
+    }
+}
+
 kotlin {
     jvmToolchain(17)
 }

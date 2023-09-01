@@ -39,9 +39,6 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-starter-data-jpa")
     testImplementation("org.junit.jupiter:junit-jupiter:5.8.1")
 
-    // h2
-    runtimeOnly("com.h2database:h2")
-
     // validator
     implementation("org.springframework.boot:spring-boot-starter-validation")
 
@@ -57,6 +54,9 @@ dependencies {
     testImplementation(kotlin("test"))
     testImplementation("io.kotest:kotest-runner-junit5:${DependencyVersions.KOTEST_VERSION}")
     testImplementation("io.kotest:kotest-assertions-core:${DependencyVersions.KOTEST_VERSION}")
+
+    // DB
+    implementation("mysql:mysql-connector-java")
 }
 
 tasks.withType<Test> {

@@ -5,12 +5,12 @@ import java.time.LocalTime
 
 data class CreateCafeDto(
     val name: String,
-    val latitude: String?,
-    val longitude: String?,
-    val mainAddress: String?,
-    val detailAddress: String?,
-    val openedAt: LocalTime?,
-    val closedAt: LocalTime?,
+    val latitude: String? = null,
+    val longitude: String? = null,
+    val mainAddress: String? = null,
+    val detailAddress: String? = null,
+    val openedAt: LocalTime? = null,
+    val closedAt: LocalTime? = null,
 ) {
     fun toEntity() = Cafe(
         name = this.name,
@@ -25,11 +25,11 @@ data class CreateCafeDto(
 
 data class UpdateCafeDto(
     val id: Long,
-    val name: String?,
-    val latitude: String?,
-    val longitude: String?,
-    val mainAddress: String?,
-    val detailAddress: String?,
-    val openedAt: LocalTime?,
-    val closedAt: LocalTime?,
+    val name: String? = null,
+    val latitude: String? = null,
+    val longitude: String? = null,
+    val mainAddress: String? = null,
+    val detailAddress: String? = null,
+    val openedAt: LocalTime? = null,
+    val closedAt: LocalTime? = null,
 )

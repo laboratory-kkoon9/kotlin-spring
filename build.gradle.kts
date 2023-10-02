@@ -54,6 +54,9 @@ dependencies {
     testImplementation(kotlin("test"))
     testImplementation("io.kotest:kotest-runner-junit5:${DependencyVersions.KOTEST_VERSION}")
     testImplementation("io.kotest:kotest-assertions-core:${DependencyVersions.KOTEST_VERSION}")
+    testImplementation("com.h2database:h2:1.4.200")
+    testImplementation("org.springframework.boot:spring-boot-starter-test")
+    testImplementation("io.kotest.extensions:kotest-extensions-spring:1.1.2")
 
     // DB
     implementation("mysql:mysql-connector-java")

@@ -15,10 +15,10 @@ class Cafe(
     openedAt: LocalTime? = null,
     closedAt: LocalTime? = null,
     activate: Boolean = true
-): BaseEntity() {
+) : BaseEntity() {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    val id: Long ? = null
+    val id: Long? = null
 
     @Column(name = "name")
     var name: String = name

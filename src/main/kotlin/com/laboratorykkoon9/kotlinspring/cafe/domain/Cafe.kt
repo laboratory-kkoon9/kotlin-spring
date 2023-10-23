@@ -5,7 +5,7 @@ import jakarta.persistence.*
 import java.time.LocalTime
 
 @Entity
-@Table(name = "cafe")
+@Table(name = "cafes")
 class Cafe(
     name: String,
     latitude: String? = null,
@@ -51,6 +51,10 @@ class Cafe(
     @Column(name = "activate")
     var activate: Boolean = activate
         private set
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "cafe")
+    val menus: MutableSet<CafeMenuOption> = mutableSetOf()
+
 
     companion object {
         val CAFE_OPEN_TIME: LocalTime = LocalTime.of(9, 0)

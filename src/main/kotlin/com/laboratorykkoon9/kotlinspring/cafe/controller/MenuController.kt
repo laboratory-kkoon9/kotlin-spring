@@ -46,5 +46,4 @@ class MenuController(
 
 fun MenuRequest.toParam() = GetMenuInfo(
     cafeId = cafeId,
-    categoryId = categoryId
 )

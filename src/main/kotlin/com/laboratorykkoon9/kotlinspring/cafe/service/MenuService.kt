@@ -1,6 +1,5 @@
 package com.laboratorykkoon9.kotlinspring.cafe.service
 
-import com.laboratorykkoon9.kotlinspring.cafe.repository.CategoryRepository
 import com.laboratorykkoon9.kotlinspring.cafe.repository.CustomMenuRepository
 import com.laboratorykkoon9.kotlinspring.cafe.repository.MenuRepository
 import com.laboratorykkoon9.kotlinspring.cafe.service.model.GetMenuInfo
@@ -15,7 +14,6 @@ class MenuService(
 ) {
     val logger = KotlinLogging.logger {}
 
-    @Transactional(readOnly = true)
     suspend fun getMenus(
         param: GetMenuInfo,
         pageable: Pageable
@@ -24,5 +22,4 @@ class MenuService(
 
 fun GetMenuInfo.toParam() = CustomMenuRepository.MenuParameter(
     cafeId = cafeId,
-    categoryId = categoryId
 )

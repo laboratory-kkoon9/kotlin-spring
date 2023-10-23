@@ -14,26 +14,23 @@ class CafeService(
 ) {
     val logger = KotlinLogging.logger {}
 
-    @Transactional(readOnly = true)
     suspend fun getCafeInfo(
         pageable: Pageable
     ) = cafeRepository.findAll(pageable)
         .also { logger.info("조회된 카페의 개수는 ${it.content.size}입니다.") }
 
-    @Transactional
+
     suspend fun createCafe(
         cafeDto: CreateCafeDto
     ) = cafeDto.toEntity()
         .also {
-            val cafe = cafeRepository.findByName(it.name)
-            if (cafe.isPresent) {
+            if(cafeRepository.existsByName(it.name)) {
                 throw IllegalArgumentException("${it.name}은(는) 이미 존재하는 이름입니다.")
             }
         }
         .also { cafeRepository.save(it) }
         .also { logger.info("생성된 카페의 이름은 ${it.name}입니다.") }
 
-    @Transactional
     suspend fun updateCafe(
         cafeDto: UpdateCafeDto
     ) = cafeDto.let {
@@ -52,7 +49,6 @@ class CafeService(
         }
         .also { logger.info("수정된 카페의 이름은 ${it.name}입니다.") }
 
-    @Transactional
     suspend fun updateCafeStatus(
         id: Long
     ) = cafeRepository.findById(id).orElseThrow { IllegalArgumentException("카페 번호를 다시 확인해주세요.") }

@@ -1,8 +1,10 @@
 package com.laboratorykkoon9.kotlinspring.cafe.repository
 
 import com.laboratorykkoon9.kotlinspring.cafe.domain.Menu
-import com.laboratorykkoon9.kotlinspring.cafe.domain.QCategory
+import com.laboratorykkoon9.kotlinspring.cafe.domain.QCafeMenuOption.cafeMenuOption
 import com.laboratorykkoon9.kotlinspring.cafe.domain.QMenu
+import com.laboratorykkoon9.kotlinspring.cafe.domain.QMenu.menu
+import com.laboratorykkoon9.kotlinspring.cafe.domain.QMenuOption.menuOption
 import com.querydsl.jpa.impl.JPAQueryFactory
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.PageImpl
@@ -21,7 +23,6 @@ interface CustomMenuRepository {
 
     data class MenuParameter(
         val cafeId: Long,
-        val categoryId: Long? = null,
     )
 }
 
@@ -29,21 +30,15 @@ class CustomMenuRepositoryImpl(
     private val queryFactory: JPAQueryFactory
 ) : CustomMenuRepository {
     override fun findMenu(param: CustomMenuRepository.MenuParameter, pageable: Pageable): Page<Menu> {
-        val menu = QMenu.menu
-        val category = QCategory.category
+
 
         val query = queryFactory.query()
-            .from(menu)
-            .innerJoin(category).on(
-                category.id.eq(menu.categoryId)
-            )
-            .where(category.cafeId.eq(param.cafeId))
-            .where(param.categoryId?.let { category.id.eq(param.categoryId) })
+            .from(cafeMenuOption)
+
 
         val totalCount = query.fetch().size.toLong()
 
         val menus = query.select(menu)
-            .orderBy(menu.categoryId.asc())
             .offset(pageable.offset)
             .limit(pageable.pageSize.toLong())
             .fetch()

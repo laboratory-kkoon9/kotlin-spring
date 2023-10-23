@@ -28,3 +28,8 @@ spring:
     url: jdbc:mysql://localhost:3306/cafe?characterEncoding=UTF-8&zeroDateTimeBehavior=convertToNull
     username: root
     password: root
+
+
+logging:
+  level:
+    org.springframework.transaction.interceptor: TRACE

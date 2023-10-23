@@ -44,9 +44,9 @@ class CafeController(
         ),
     )
     @GetMapping
-    fun getCafeInfo(
+    suspend fun getCafeInfo(
         @PageableDefault(page = 0, size = 30) pageable: Pageable
-    ) = runBlocking { cafeService.getCafeInfo(pageable) }
+    ) = cafeService.getCafeInfo(pageable)
         .map { CafeResponseDto.of(it) }
         .let { Response.pageOf(it) }
 

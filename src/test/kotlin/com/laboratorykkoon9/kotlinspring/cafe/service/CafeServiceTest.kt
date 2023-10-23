@@ -38,6 +38,7 @@ internal class CafeServiceTest(
             throw RuntimeException(e)
         }
     }
+
     val cafeService = CafeService(cafeRepository)
 
     describe("getCafeInfo") {
@@ -84,6 +85,15 @@ internal class CafeServiceTest(
                 shouldThrow<IllegalArgumentException> {
                     cafeService.updateCafeStatus(cafeId)
                 }
+            }
+        }
+
+        context("카페 상태를 수정을 시도하면") {
+            val cafeId = 1L
+
+            it("카페 상태가 수정된다.") {
+                val cafe = cafeService.updateCafeStatus(cafeId)
+                cafe.activate shouldBe false
             }
         }
     }

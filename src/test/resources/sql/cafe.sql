@@ -1,1 +1,1 @@
-INSERT INTO cafe(id, name, latitude, longitude, main_address, detail_address, opened_at, closed_at, activate, created_at, updated_at) VALUES (1,'둥겸의 커피집', '31', '32', '삼전역', '1층', '10:00', '19:00', true, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+INSERT INTO cafes(id, name, latitude, longitude, main_address, detail_address, opened_at, closed_at, activate, created_at, updated_at) VALUES (1,'둥겸의 커피집', '31', '32', '삼전역', '1층', '10:00', '19:00', true, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);

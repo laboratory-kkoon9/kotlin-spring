@@ -57,6 +57,8 @@ dependencies {
     testImplementation("com.h2database:h2:1.4.200")
     testImplementation("org.springframework.boot:spring-boot-starter-test")
     testImplementation("io.kotest.extensions:kotest-extensions-spring:1.1.2")
+    testImplementation("io.mockk:mockk:1.12.4")
+
 
     // DB
     implementation("mysql:mysql-connector-java")

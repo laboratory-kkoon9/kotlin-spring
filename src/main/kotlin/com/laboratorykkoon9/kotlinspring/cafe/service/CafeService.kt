@@ -11,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional
 @Service
 class CafeService(
     private val cafeRepository: CafeRepository,
+    private val cafeValidator: CafeValidator,
 ) {
     val logger = KotlinLogging.logger {}
 
@@ -24,9 +25,7 @@ class CafeService(
         cafeDto: CreateCafeDto
     ) = cafeDto.toEntity()
         .also {
-            if(cafeRepository.existsByName(it.name)) {
-                throw IllegalArgumentException("${it.name}은(는) 이미 존재하는 이름입니다.")
-            }
+            cafeValidator.createValidator(it.name)
         }
         .also { cafeRepository.save(it) }
         .also { logger.info("생성된 카페의 이름은 ${it.name}입니다.") }

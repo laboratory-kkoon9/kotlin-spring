@@ -7,6 +7,10 @@ import com.laboratorykkoon9.kotlinspring.config.QuerydslConfig
 import io.kotest.assertions.throwables.shouldThrow
 import io.kotest.core.spec.style.DescribeSpec
 import io.kotest.matchers.shouldBe
+import io.mockk.every
+import io.mockk.just
+import io.mockk.mockk
+import io.mockk.runs
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest
@@ -39,7 +43,11 @@ internal class CafeServiceTest(
         }
     }
 
-    val cafeService = CafeService(cafeRepository)
+    val cafeValidator = mockk<CafeValidator>()
+    val cafeService = CafeService(
+        cafeRepository = cafeRepository,
+        cafeValidator = cafeValidator
+    )
 
     describe("getCafeInfo") {
         context("모든 카페를 조회하면") {
@@ -55,11 +63,24 @@ internal class CafeServiceTest(
             val cafeDto = CreateCafeDto(
                 name = "둥겸의 커피집"
             )
+            every { cafeValidator.createValidator(any()) } throws IllegalArgumentException()
 
             it("예외를 던진다.") {
                 shouldThrow<IllegalArgumentException> {
                     cafeService.createCafe(cafeDto)
                 }
+            }
+        }
+
+        context("존재하지 않은 카페 이름으로 생성을 시도하면") {
+            val cafeDto = CreateCafeDto(
+                name = "둥겸의 커피집1"
+            )
+            every { cafeValidator.createValidator(any()) } just runs
+
+            it("카페 정보가 잘 저장된다.") {
+                val cafe = cafeService.createCafe(cafeDto)
+                cafe.name shouldBe "둥겸의 커피집1"
             }
         }
     }

@@ -1,10 +1,13 @@
 package com.laboratorykkoon9.kotlinspring.cafe.controller.request
 
 import io.swagger.v3.oas.annotations.media.Schema
+import jakarta.validation.constraints.NotBlank
+import jakarta.validation.constraints.NotEmpty
 import java.time.LocalTime
 
 @Schema(name = "카페 생성 Request")
 data class CreateCafeRequest(
+    @field:NotEmpty(message = "카페 이름은 공백일 수 없습니다.")
     @Schema(description = "카페 이름", defaultValue = "댕겸의 커피집")
     val name: String,
     @Schema(description = "카페 위도", defaultValue = "37.56667")

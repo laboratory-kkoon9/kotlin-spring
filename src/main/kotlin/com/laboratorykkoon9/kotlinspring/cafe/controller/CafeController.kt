@@ -13,6 +13,7 @@ import io.swagger.v3.oas.annotations.media.Content
 import io.swagger.v3.oas.annotations.media.Schema
 import io.swagger.v3.oas.annotations.responses.ApiResponse
 import io.swagger.v3.oas.annotations.responses.ApiResponses
+import jakarta.validation.Valid
 import kotlinx.coroutines.runBlocking
 import org.springframework.data.domain.Pageable
 import org.springframework.data.web.PageableDefault
@@ -64,7 +65,7 @@ class CafeController(
     )
     @PostMapping
     fun createCafe(
-        @RequestBody createCafeRequest: CreateCafeRequest
+        @Valid @RequestBody createCafeRequest: CreateCafeRequest
     ) = runBlocking { cafeService.createCafe(createCafeRequest.toRequest()) }
         .let { CafeResponseDto.of(it) }
         .let { Response.of(it) }
